@@ -12,8 +12,12 @@ namespace MovieDb.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "Obrigatório informar o nome!")]
         public string Nome { get; set; }
+
+        public ICollection<Filme> Filmes { get; set; }
     }
 }
+

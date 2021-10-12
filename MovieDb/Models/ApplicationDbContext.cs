@@ -13,6 +13,7 @@ namespace MovieDb.Models
         }
 
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Filme> Filmes { get; set; }
 
     }
 }
