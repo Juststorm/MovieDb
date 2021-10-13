@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<MovieDb.Models.Filme>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Favoritos";
 }
 
-<h1>Filmes</h1>
+<h1>Filmes Favoritos</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Criar Novo</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -19,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Duracao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Favorito)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.DataLancamento)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Favorito)
             </th>
             <th></th>
         </tr>
@@ -40,13 +37,13 @@
                 @Html.DisplayFor(modelItem => item.Duracao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Favorito)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.DataLancamento)
             </td>
             <td>
-                <a asp-controller="Filmes" asp-action="Categoria" asp-route-id="@item.Categoria.Id">@item.Categoria.Nome</a>
+                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Favorito)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a> |

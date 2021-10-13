@@ -1,0 +1,46 @@
+﻿@model MovieDb.Models.Categoria
+
+@{
+    ViewData["Title"] = "Filmes";
+}
+
+
+<h1>@Model.Nome</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Filme
+            </th>
+            <th>
+                Duração
+            </th>
+            <th>
+                Data de Lançamento
+            </th>
+            <th>
+                Favorito
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Filmes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataLancamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Favorito)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

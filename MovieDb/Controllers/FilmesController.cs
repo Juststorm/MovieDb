@@ -25,6 +25,33 @@ namespace MovieDb.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> Favoritos()
+        {
+            var filmes = await _context.Filmes
+                .Include(t => t.Categoria)
+                .Where(c => c.Favorito)
+                .ToListAsync();
+
+            return View(filmes);
+        }
+
+        public async Task<IActionResult> Categoria(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var categoria = await _context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (categoria == null) return NotFound();
+
+            ViewBag.Categoria = categoria;
+
+            var filmes = await _context.Filmes
+                .Where(c => c.CategoriaId == id)
+                .ToListAsync();
+
+            return View(filmes);
+        }
+
         // GET: Filmes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -56,7 +83,7 @@ namespace MovieDb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Duracao,DataLancamento,CategoriaId")] Filme filme)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Duracao,Favorito,DataLancamento,CategoriaId")] Filme filme)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +117,7 @@ namespace MovieDb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Duracao,DataLancamento,CategoriaId")] Filme filme)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Duracao,Favorito,DataLancamento,CategoriaId")] Filme filme)
         {
             if (id != filme.Id)
             {

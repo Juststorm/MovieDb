@@ -18,6 +18,12 @@ namespace MovieDb.Models
         public string Nome { get; set; }
 
         public ICollection<Filme> Filmes { get; set; }
+
+        [NotMapped]
+        public int Qtd
+        { 
+            get { if (Filmes == null) return 0; else return Filmes.Count; }
+        }
     }
 }
 

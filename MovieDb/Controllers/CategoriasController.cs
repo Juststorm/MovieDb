@@ -21,7 +21,20 @@ namespace MovieDb.Controllers
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorias.ToListAsync());
+            return View(await _context.Categorias.Include(t => t.Filmes).ToListAsync());
+        }
+
+        public async Task<IActionResult> Filmes(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var categoria = await _context.Categorias
+                .Include(t => t.Filmes)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (categoria == null) return NotFound();
+
+            return View(categoria);
         }
 
         // GET: Categorias/Details/5
